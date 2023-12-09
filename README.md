@@ -76,8 +76,21 @@ Then, call the this package's `run` function somewhere in your Starlark script:
 # For remote packages: 
 prometheus = import_module("github.com/kurtosis-tech/prometheus-package/main.star") 
 
-# TODO: add code giving an example of setting up the metrics jobs
-prometheus_url = prometheus-package.run(plan, args)
+def run(plan, args = {}):
+    ...
+    # add a service that exposes a metrics port for prometheus metrics
+    service_a = plan.add_service(name="sevice_a", config=...)
+
+    service_a_metrics_info = { 
+        "Name":"service_a", 
+        "Endpoint":"http://{0}:{1}".format(service_a.ip_address, service_a.ports["metrics"].number),
+        "Labels": { 
+            "service_type": "backend" 
+        }
+    }
+
+    # start a prometheus server that scrapes service_a's metrics and returns a prom url for querying those metrics
+    prometheus_url = prometheus-package.run(plan, [service_a_metrics_info])
 ```
 
 If you want to use a fork or specific version of this package in your own package, you can replace the dependencies in your `kurtosis.yml` file using the [replace](https://docs.kurtosis.com/concepts-reference/kurtosis-yml/#replace) primitive. 
