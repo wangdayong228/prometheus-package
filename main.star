@@ -22,7 +22,7 @@ def run(plan, service_metrics_info=[]):
             ]
            ```
     Returns:
-        A url to the prometheus service.
+        prometheus_url : endpoint to prometheus service inside the enclave (eg. 123.123.212:9090)
     """
     prometheus_config_template = read_file(src="./static-files/prometheus.yml.tmpl")
 
