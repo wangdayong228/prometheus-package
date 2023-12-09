@@ -1,5 +1,5 @@
 {
-    "service_metrics_configs": [
+    "metrics_jobs": [
         {
             "Name": "" , 
             "Endpoint": "", 

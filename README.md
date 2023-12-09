@@ -22,19 +22,19 @@ NOTE: the `//` lines are not valid JSON; you will need to remove them!
 
 ```javascript
 {
-    "service_metrics_configs": [
+    "metrics_jobs": [
         {
-            // services name or metrics job name
+            // name of metrics job
             "Name": "" , 
 
-            // endpoint to scrape metrics from, <services ip address>:<exposed metrics port>
+            // endpoint to scrape metrics from,eg. <services ip address>:<exposed metrics port>
             "Endpoint": "", 
 
-            // labels to associate with services metrics (eg. { "service_type": "api" } )
+            // labels to associate with scraped metrics (eg. { "service_type": "api" } )
             // optional
             "Labels": {}, 
 
-            // http path to scrape metrics from (defaults to "/metrics")
+            // http path to scrape metrics from
             // optional
             "MetricsPath": "/metrics", 
 
@@ -54,7 +54,7 @@ The arguments can then be passed in to `kurtosis run`.
 For example:
 
 ```bash
-kurtosis run github.com/kurtosis-tech/prometheus-package '{"service_metrics_configs": [...]}'
+kurtosis run github.com/kurtosis-tech/prometheus-package '{"metrics_jobs": [...]}'
 ```
 
 You can also store the JSON args in a file, and use `--args-file` flag to slot them in:
@@ -81,7 +81,7 @@ def run(plan, args = {}):
     # add a service that exposes a metrics port for prometheus metrics
     service_a = plan.add_service(name="sevice_a", config=...)
 
-    service_a_metrics_info = { 
+    service_a_metrics_job = { 
         "Name":"service_a", 
         "Endpoint":"http://{0}:{1}".format(service_a.ip_address, service_a.ports["metrics"].number),
         "Labels": { 
@@ -90,7 +90,7 @@ def run(plan, args = {}):
     }
 
     # start a prometheus server that scrapes service_a's metrics and returns a prom url for querying those metrics
-    prometheus_url = prometheus-package.run(plan, [service_a_metrics_info])
+    prometheus_url = prometheus-package.run(plan, [service_a_metrics_job])
 ```
 
 If you want to use a fork or specific version of this package in your own package, you can replace the dependencies in your `kurtosis.yml` file using the [replace](https://docs.kurtosis.com/concepts-reference/kurtosis-yml/#replace) primitive. 
