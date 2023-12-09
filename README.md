@@ -66,11 +66,15 @@ Use this package in your package
 --------------------------------
 Kurtosis packages can be composed inside other Kurtosis packages. To use this package in your package:
 
-First, import this package by adding the following to the top of your Starlark file:
+First, import this package by adding the following to the top of your Starlark file.
+Then, call the this package's `run` function somewhere in your Starlark script:
 
 ```python
 # For remote packages: 
 prometheus = import_module("github.com/kurtosis-tech/prometheus-package/main.star") 
+
+# TODO: add code giving an example of setting up the metrics jobs
+prometheus_url = prometheus-package.run(plan, args)
 ```
 
 If you want to use a fork or specific version of this package in your own package, you can replace the dependencies in your `kurtosis.yml` file using the [replace](https://docs.kurtosis.com/concepts-reference/kurtosis-yml/#replace) primitive. 
@@ -79,14 +83,6 @@ Within your `kurtosis.yml` file:
 name: github.com/example-org/example-repo
 replace:
     github.com/kurtosis-tech/prometheus-package: github.com/YOURUSER/THISREPO@YOURBRANCH
-```
-
-Then, call the this package's `run` function somewhere in your Starlark script:
-
-```python
-
-# TODO: add code giving an example of setting up the metrics jobs
-prometheus_url = prometheus-package.run(plan, args)
 ```
 
 Develop on this package
