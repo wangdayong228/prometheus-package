@@ -1,14 +1,13 @@
-My Package
+Prometheus Package
 ============
-This is a [Kurtosis](https://github.com/kurtosis-tech/kurtosis/) package. It doesn't do much now, but it will soon!
+This is a [Kurtosis](https://github.com/kurtosis-tech/kurtosis/) package for starting a Prometheus server.
 
 Run this package
 ----------------
 If you have [Kurtosis installed][install-kurtosis], run:
 
-<!-- TODO replace YOURUSER and THISREPO with the correct values -->
 ```bash
-kurtosis run github.com/YOURUSER/THISREPO
+kurtosis run github.com/kurtosis-tech/prometheus-package
 ```
 
 If you don't have Kurtosis installed, [click here to run this package on the Kurtosis playground](https://gitpod.io/?autoStart=true&editor=code#https://github.com/kurtosis-tech/playground-gitpod).
@@ -24,7 +23,7 @@ You can configure this package using the JSON structure below. The default value
 
 NOTE: the `//` lines are not valid JSON; you will need to remove them!
 
-<!-- TODO Parameterize your package as you prefer; see https://docs.kurtosis.com/next/concepts-reference/args for more -->
+# TODO: change these for metrics jobs
 ```javascript
 {
     // The name to print
@@ -36,16 +35,14 @@ The arguments can then be passed in to `kurtosis run`.
 
 For example:
 
-<!-- TODO replace YOURUSER and THISREPO with the correct values -->
 ```bash
-kurtosis run github.com/YOURUSER/THISREPO '{"name":"Maynard James Keenan"}'
+kurtosis run github.com/kurtosis-tech/prometheus-package '{"name":"Maynard James Keenan"}'
 ```
 
-You can also store the JSON args in a file, and use command expansion to slot them in:
+You can also store the JSON args in a file, and use `--args-file` flag to slot them in:
 
-<!-- TODO replace YOURUSER and THISREPO with the correct values -->
 ```bash
-kurtosis run github.com/YOURUSER/THISREPO "$(cat args.json)"
+kurtosis run github.com/kurtosis-tech/prometheus-package --args-file args.json
 ```
 
 </details>
@@ -54,15 +51,11 @@ Use this package in your package
 --------------------------------
 Kurtosis packages can be composed inside other Kurtosis packages. To use this package in your package:
 
-<!-- TODO Replace YOURUSER and THISREPO with the correct values! -->
 First, import this package by adding the following to the top of your Starlark file:
 
 ```python
 # For remote packages: 
-this_package = import_module("github.com/YOURUSER/THISREPO/main.star") 
-
-# For local packages:
-this_package = import_module(".src/main.star")
+prometheus = import_module("github.com/kurtosis-tech/prometheus-package/main.star") 
 ```
 
 If you want to use a fork or specific version of this package in your own package, you can replace the dependencies in your `kurtosis.yml` file using the [replace](https://docs.kurtosis.com/concepts-reference/kurtosis-yml/#replace) primitive. 
@@ -70,13 +63,13 @@ Within your `kurtosis.yml` file:
 ```python
 name: github.com/example-org/example-repo
 replace:
-    github.com/YOURUSER/THISREPO: github.com/YOURUSER/THISREPO@YOURBRANCH
+    github.com/kurtosis-tech/prometheus-package: github.com/YOURUSER/THISREPO@YOURBRANCH
 ```
 
 Then, call the this package's `run` function somewhere in your Starlark script:
 
 ```python
-this_package_output = this_package.run(plan, args)
+prometheus_url = prometheus-package.run(plan, args)
 ```
 
 Develop on this package
