@@ -1,20 +1,31 @@
 CONFIG_DIR = "/config"
 CONFIG_FILENAME = "prometheus-config.yml"
+DEFAULT_SCRAPE_INTERVAL = "15s"
 
-def run(plan, service_metrics_info=[]):
-    """ Starts a Prometheus server that scrapes metrics off the provided services/metrics job configurations.
+def run(plan, service_metrics_configs=[]):
+    """ Starts a Prometheus server that scrapes metrics off the provided services prometheus metrics configurations.
 
     Args:
-        service_metrics_info(list[dict[string, string]]): A list of 
+        service_metrics_info(list[dict[string, string]]): A list of prometheus metrics configs to scrape metrics from. 
+           More info on scrape config here: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config
            eg.
            ```
            service_metrics_configs: [
                 {
-                    Name:(make this service name) , 
-                    Endpoint: (private ip address combined with the metrics port) , 
-                    Labels={}, 
-                    MetricsPath: (default: "/metrics"), 
-                    ScrapeInterval: (provide a default) 
+                    # services name or metrics job name
+                    Name: "" , 
+
+                    # endpoint to scrape metrics from, <services ip address>:<exposed metrics port>
+                    Endpoint: "", 
+
+                    # labels to associate with services metrics (eg. { "service_type": "api" } )
+                    Labels:{}, 
+
+                    # http path to scrape metrics from (defaults to "/metrics")
+                    MetricsPath: "", 
+
+                    # how frequently to scrape targets from this job (defaults to DEFAULT_SCRAPE_INTERVAL)
+                    ScrapeInterval: ""
                 },
                 { 
                     ...

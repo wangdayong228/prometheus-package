@@ -26,8 +26,27 @@ NOTE: the `//` lines are not valid JSON; you will need to remove them!
 # TODO: change these for metrics jobs
 ```javascript
 {
-    // The name to print
-    "name": "John Snow"
+    "service_metrics_configs": [
+        {
+            // services name or metrics job name
+            Name: "" , 
+
+            // endpoint to scrape metrics from, <services ip address>:<exposed metrics port>
+            Endpoint: "", 
+
+            // labels to associate with services metrics (eg. { "service_type": "api" } )
+            Labels={}, 
+
+            // http path to scrape metrics from (defaults to "/metrics")
+            MetricsPath: "", 
+
+            // how frequently to scrape targets from this job (defaults to DEFAULT_SCRAPE_INTERVAL)
+            ScrapeInterval: ""
+        },
+        { 
+           // ...
+        },
+    ]
 }
 ```
 

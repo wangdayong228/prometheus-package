@@ -1,3 +1,11 @@
 {
-    "service_metrics_configs":[]
+    "service_metrics_configs": [
+        {
+            "Name": "" , 
+            "Endpoint": "", 
+            "Labels": {}, 
+            "MetricsPath": "", 
+            "ScrapeInterval": ""
+        }
+    ]
 }
