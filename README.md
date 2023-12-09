@@ -69,6 +69,8 @@ replace:
 Then, call the this package's `run` function somewhere in your Starlark script:
 
 ```python
+
+# TODO: add code giving an example of setting up the metrics jobs
 prometheus_url = prometheus-package.run(plan, args)
 ```
 

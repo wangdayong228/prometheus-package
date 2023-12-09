@@ -1,17 +1,33 @@
 CONFIG_DIR = "/config"
 CONFIG_FILENAME = "prometheus-config.yml"
 
-def run(plan, args={}):
-    """ Starts a Prometheus server that scrapes metrics off the provided services.
+def run(plan, service_metrics_info=[]):
+    """ Starts a Prometheus server that scrapes metrics off the provided services/metrics job configurations.
 
     Args:
-        services(list[dict[string, string]]): ....
+        service_metrics_info(list[dict[string, string]]): A list of 
+           eg.
+           ```
+           service_metrics_configs: [
+                {
+                    Name:(make this service name) , 
+                    Endpoint: (private ip address combined with the metrics port) , 
+                    Labels={}, 
+                    MetricsPath: (default: "/metrics"), 
+                    ScrapeInterval: (provide a default) 
+                },
+                { 
+                    ...
+                },
+            ]
+           ```
+    Returns:
+        A url to the prometheus service.
     """
     prometheus_config_template = read_file(src="./static-files/prometheus.yml.tmpl")
 
-    metrics_jobs = []
     prometheus_config_data = {
-        "MetricsJobs": metrics_jobs
+        "MetricsJobs": get_metrics_jobs(service_metrics_configs)
     }
 
     prom_config_files_artifact = plan.render_templates(
@@ -55,12 +71,6 @@ def run(plan, args={}):
 
     return "http://{0}:{1}".format(prometheus_service_ip_address, prometheus_service_http_port)
     
-    ### metrics jobs
-    # {
-        # Name:(make this service name) , 
-        # Endpoint: (private ip address combined with the metrics port) , 
-        # Labels={}, 
-        # MetricsPath: (default: "/metrics"), 
-        # ScrapeInterval: (provide a default) 
-    # }
-
+def get_metrics_jobs(service_metrics_configs):
+    metrics_jobs = []
+    return metrics_jobs
