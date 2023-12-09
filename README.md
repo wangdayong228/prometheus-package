@@ -37,7 +37,7 @@ NOTE: the `//` lines are not valid JSON; you will need to remove them!
             "MetricsPath": "/metrics", 
 
             // how frequently to scrape targets from this job (defaults to DEFAULT_SCRAPE_INTERVAL)
-            "ScrapeInterval": ""
+            "ScrapeInterval: ""
         },
         { 
            // ...
@@ -51,7 +51,7 @@ The arguments can then be passed in to `kurtosis run`.
 For example:
 
 ```bash
-kurtosis run github.com/kurtosis-tech/prometheus-package '{"name":"Maynard James Keenan"}'
+kurtosis run github.com/kurtosis-tech/prometheus-package '{"service_metrics_configs": [...]}'
 ```
 
 You can also store the JSON args in a file, and use `--args-file` flag to slot them in:
