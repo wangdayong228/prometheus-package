@@ -31,13 +31,16 @@ NOTE: the `//` lines are not valid JSON; you will need to remove them!
             "Endpoint": "", 
 
             // labels to associate with services metrics (eg. { "service_type": "api" } )
+            // optional
             "Labels": {}, 
 
             // http path to scrape metrics from (defaults to "/metrics")
+            // optional
             "MetricsPath": "/metrics", 
 
-            // how frequently to scrape targets from this job (defaults to DEFAULT_SCRAPE_INTERVAL)
-            "ScrapeInterval: ""
+            // how frequently to scrape targets from this job
+            // optional
+            "ScrapeInterval": "15s"
         },
         { 
            // ...

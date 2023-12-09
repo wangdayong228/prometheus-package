@@ -6,7 +6,7 @@ def run(plan, service_metrics_configs=[]):
     """ Starts a Prometheus server that scrapes metrics off the provided services prometheus metrics configurations.
 
     Args:
-        service_metrics_info(list[dict[string, string]]): A list of prometheus metrics configs to scrape metrics from. 
+        service_metrics_info(json): A list of prometheus metrics configs to scrape metrics from. 
            More info on scrape config here: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config
            eg.
            ```
@@ -19,13 +19,16 @@ def run(plan, service_metrics_configs=[]):
                     Endpoint: "", 
 
                     # labels to associate with services metrics (eg. { "service_type": "api" } )
+                    # optional
                     Labels:{}, 
 
-                    # http path to scrape metrics from (defaults to "/metrics")
-                    MetricsPath: "", 
+                    # http path to scrape metrics from
+                    # optional
+                    MetricsPath: "/metrics", 
 
-                    # how frequently to scrape targets from this job (defaults to DEFAULT_SCRAPE_INTERVAL)
-                    ScrapeInterval: ""
+                    # how frequently to scrape targets from this job
+                    # optional
+                    ScrapeInterval: "15s"
                 },
                 { 
                     ...
@@ -33,7 +36,7 @@ def run(plan, service_metrics_configs=[]):
             ]
            ```
     Returns:
-        prometheus_url : endpoint to prometheus service inside the enclave (eg. 123.123.212:9090)
+        prometheus_url: endpoint to prometheus service inside the enclave (eg. 123.123.212:9090)
     """
     prometheus_config_template = read_file(src="./static-files/prometheus.yml.tmpl")
 
@@ -84,4 +87,31 @@ def run(plan, service_metrics_configs=[]):
     
 def get_metrics_jobs(service_metrics_configs):
     metrics_jobs = []
+    for metrics_config in service_metrics_configs:
+        if "Name" not in metrics_config:
+            fail("Name not provided in metrics config.")
+        if "Endpoint" not in metrics_config:
+            fail("Endpoint not provided in metrics config")
+        
+        labels = {}
+        if "Labels" in metrics_config:
+            lables = metrics_config["Labels"]
+
+        metrics_path = "/metrics"
+        if "MetricsPath" in metrics_config:
+            metrics_path = metrics_config["MetricsPath"]
+
+        scrape_interval = DEFAULT_SCRAPE_INTERVAL
+        if "ScrapeInterval" in metrics_config:
+            scrape_interval = metrics_config["ScrapeInterval"]
+
+        metrics_job.append({
+            "Name": metrics_config["Name"],
+            "Endpoint": metrics_config["Endpoint"],
+            "Labels": labels,
+            "MetricsPath": metrics_path,
+            "ScrapeInterval": scrape_interval,
+            
+        })
+        
     return metrics_jobs
