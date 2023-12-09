@@ -16,32 +16,28 @@ To blow away the created [enclave][enclaves-reference], run `kurtosis clean -a`.
 
 #### Configuration
 
-<details>
-    <summary>Click to see configuration</summary>
-
 You can configure this package using the JSON structure below. The default values for each parameter are shown.
 
 NOTE: the `//` lines are not valid JSON; you will need to remove them!
 
-# TODO: change these for metrics jobs
 ```javascript
 {
     "service_metrics_configs": [
         {
             // services name or metrics job name
-            Name: "" , 
+            "Name": "" , 
 
             // endpoint to scrape metrics from, <services ip address>:<exposed metrics port>
-            Endpoint: "", 
+            "Endpoint": "", 
 
             // labels to associate with services metrics (eg. { "service_type": "api" } )
-            Labels={}, 
+            "Labels": {}, 
 
             // http path to scrape metrics from (defaults to "/metrics")
-            MetricsPath: "", 
+            "MetricsPath": "/metrics", 
 
             // how frequently to scrape targets from this job (defaults to DEFAULT_SCRAPE_INTERVAL)
-            ScrapeInterval: ""
+            "ScrapeInterval": ""
         },
         { 
            // ...
