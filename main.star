@@ -105,7 +105,7 @@ def get_metrics_jobs(service_metrics_configs):
         if "ScrapeInterval" in metrics_config:
             scrape_interval = metrics_config["ScrapeInterval"]
 
-        metrics_job.append({
+        metrics_jobs.append({
             "Name": metrics_config["Name"],
             "Endpoint": metrics_config["Endpoint"],
             "Labels": labels,
