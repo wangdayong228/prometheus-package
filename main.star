@@ -41,7 +41,7 @@ def run(plan, metrics_jobs=[]):
     prometheus_config_template = read_file(src="./static-files/prometheus.yml.tmpl")
 
     prometheus_config_data = {
-        "MetricsJobs": get_metrics_jobs(metrics_job)
+        "MetricsJobs": get_metrics_jobs(metrics_jobs)
     }
 
     prom_config_files_artifact = plan.render_templates(
