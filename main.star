@@ -4,10 +4,10 @@ DEFAULT_SCRAPE_INTERVAL = "15s"
 
 def run(plan, 
         metrics_jobs=[], 
-        min_cpu=0, # if set to 0 (default value), bounds put on resource alloc
-        max_cpu=0,
-        min_memory=0,
-        max_memory=0):
+        min_cpu=10,
+        max_cpu=1000,
+        min_memory=128,
+        max_memory=2048):
     """ Starts a Prometheus server that scrapes metrics off the provided prometheus metrics configurations.
 
     Args:
@@ -90,7 +90,7 @@ def run(plan,
         min_cpu=min_cpu,
         max_cpu=max_cpu,
         min_memory=min_memory,
-        max_memory=max_memory
+        max_memory=max_memory,
     ))
 
     prometheus_service_ip_address = prometheus_service.ip_address
