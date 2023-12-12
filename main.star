@@ -2,7 +2,12 @@ CONFIG_DIR = "/config"
 CONFIG_FILENAME = "prometheus-config.yml"
 DEFAULT_SCRAPE_INTERVAL = "15s"
 
-def run(plan, metrics_jobs=[]):
+def run(plan, 
+        metrics_jobs=[], 
+        min_cpu=0, # if set to 0 (default value), bounds put on resource alloc
+        max_cpu=0,
+        min_memory=0,
+        max_memory=0):
     """ Starts a Prometheus server that scrapes metrics off the provided prometheus metrics configurations.
 
     Args:
@@ -35,6 +40,10 @@ def run(plan, metrics_jobs=[]):
                 },
             ]
            ```
+        min_cpu(int): min cpu for prometheus instance
+        max_cpu(int): max cpu for prometheus instance
+        min_memory(int): min memory for prometheus instance
+        max_memory(int): max memory for prometheus instance
     Returns:
         prometheus_url: endpoint to prometheus service inside the enclave (eg. 123.123.212:9090)
     """
@@ -77,7 +86,11 @@ def run(plan, metrics_jobs=[]):
             "--web.console.libraries=/etc/prometheus/console_libraries",
             "--web.console.templates=/etc/prometheus/consoles",
             "--web.enable-lifecycle",
-        ]
+        ],
+        min_cpu=min_cpu,
+        max_cpu=max_cpu,
+        min_memory=min_memory,
+        max_memory=max_memory
     ))
 
     prometheus_service_ip_address = prometheus_service.ip_address

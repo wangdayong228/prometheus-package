@@ -77,9 +77,13 @@ Then, call the this package's `run` function somewhere in your Starlark script:
 prometheus = import_module("github.com/kurtosis-tech/prometheus-package/main.star") 
 
 def run(plan, args = {}):
-    ...
-    # add a service that exposes a metrics port for prometheus metrics
-    service_a = plan.add_service(name="sevice_a", config=...)
+    service_a = plan.add_service(name="sevice_a", config=ServiceConfig(
+        ...
+        ports = {
+            "metrics": PortSpec(number=9090, transport_protocol="TCP", application_protocol="http")
+        },
+        ...
+    ))
 
     service_a_metrics_job = { 
         "Name":"service_a", 
