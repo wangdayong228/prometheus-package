@@ -46,7 +46,7 @@ def run(plan,
         max_cpu(int): max cpu for prometheus instance
         min_memory(int): min memory for prometheus instance
         max_memory(int): max memory for prometheus instance
-        node_selectors (dict): Define a dict of node selectors - only works in kubernetes example: {"kubernetes.io/hostname": node-name-01}
+        node_selectors (dict[string, string]): Define a dict of node selectors - only works in kubernetes example: {"kubernetes.io/hostname": node-name-01}
     Returns:
         prometheus_url: endpoint to prometheus service inside the enclave (eg. 123.123.212:9090)
     """
