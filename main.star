@@ -4,6 +4,7 @@ DEFAULT_SCRAPE_INTERVAL = "15s"
 
 def run(plan, 
         metrics_jobs=[], 
+        name="prometheus",
         min_cpu=10,
         max_cpu=1000,
         min_memory=128,
@@ -71,7 +72,7 @@ def run(plan,
     if node_selectors == None:
         node_selectors = {}
 
-    prometheus_service = plan.add_service(name="prometheus", config=ServiceConfig(
+    prometheus_service = plan.add_service(name=name, config=ServiceConfig(
         image="prom/prometheus:latest",
         ports={
             "http": PortSpec(
