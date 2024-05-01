@@ -116,7 +116,7 @@ def get_metrics_jobs(service_metrics_configs):
         
         labels = {}
         if "Labels" in metrics_config:
-            lables = metrics_config["Labels"]
+            labels = metrics_config["Labels"]
 
         metrics_path = "/metrics"
         if "MetricsPath" in metrics_config:
