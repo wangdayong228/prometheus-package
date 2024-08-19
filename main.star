@@ -7,13 +7,13 @@ def run(
     plan,
     metrics_jobs=[],
     name="prometheus",
-    storage_tsdb_retention_time="1d",
-    storage_tsdb_retention_size="512MB",
     min_cpu=10,
     max_cpu=1000,
     min_memory=128,
     max_memory=2048,
     node_selectors=None,
+    storage_tsdb_retention_time="1d",
+    storage_tsdb_retention_size="512MB",
 ):
     """Starts a Prometheus server that scrapes metrics off the provided prometheus metrics configurations.
 
