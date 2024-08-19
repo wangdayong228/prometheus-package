@@ -94,8 +94,8 @@ def run(
             cmd=[
                 "--config.file=" + config_file_path,
                 "--storage.tsdb.path=/prometheus",
-                "--storage.tsdb.retention.time=" + storage_tsdb_retention_time,
-                "--storage.tsdb.retention.size=" + storage_tsdb_retention_size,
+                "--storage.tsdb.retention.time=" + str(storage_tsdb_retention_time),
+                "--storage.tsdb.retention.size=" + str(storage_tsdb_retention_size),
                 "--storage.tsdb.wal-compression",
                 "--web.console.libraries=/etc/prometheus/console_libraries",
                 "--web.console.templates=/etc/prometheus/consoles",
