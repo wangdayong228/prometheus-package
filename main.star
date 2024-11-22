@@ -14,6 +14,7 @@ def run(
     node_selectors=None,
     storage_tsdb_retention_time="1d",
     storage_tsdb_retention_size="512MB",
+    image="",
 ):
     """Starts a Prometheus server that scrapes metrics off the provided prometheus metrics configurations.
 
@@ -77,10 +78,13 @@ def run(
     if node_selectors == None:
         node_selectors = {}
 
+    if image="":
+        image="prom/prometheus:latest"
+
     prometheus_service = plan.add_service(
         name=name,
         config=ServiceConfig(
-            image="prom/prometheus:latest",
+            image=image,
             ports={
                 "http": PortSpec(
                     number=9090,
