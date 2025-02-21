@@ -45,7 +45,7 @@ def run(
 
                     # fallback protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type
                     # optional
-                    FallbackScrapeProtocol: "http"
+                    FallbackScrapeProtocol: "PrometheusText0.0.4"
                 },
                 {
                     ...
@@ -145,7 +145,7 @@ def get_metrics_jobs(service_metrics_configs):
         if "ScrapeInterval" in metrics_config:
             scrape_interval = metrics_config["ScrapeInterval"]
 
-        fallback_scrape_interval = "http"
+        fallback_scrape_interval = "PrometheusText0.0.4"
         if "FallbackScrapeProtocol" in metrics_config:
             fallback_scrape_interval = metrics_config["FallbackScrapeProtocol"]
 
