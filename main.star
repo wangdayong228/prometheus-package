@@ -41,7 +41,11 @@ def run(
 
                     # how frequently to scrape targets from this job
                     # optional
-                    ScrapeInterval: "15s"
+                    ScrapeInterval: "15s",
+
+                    # fallback protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type
+                    # optional
+                    FallbackScrapeProtocol: "PrometheusText0.0.4"
                 },
                 {
                     ...
@@ -141,6 +145,10 @@ def get_metrics_jobs(service_metrics_configs):
         if "ScrapeInterval" in metrics_config:
             scrape_interval = metrics_config["ScrapeInterval"]
 
+        fallback_scrape_interval = "PrometheusText0.0.4"
+        if "FallbackScrapeProtocol" in metrics_config:
+            fallback_scrape_interval = metrics_config["FallbackScrapeProtocol"]
+
         metrics_jobs.append(
             {
                 "Name": metrics_config["Name"],
@@ -148,6 +156,7 @@ def get_metrics_jobs(service_metrics_configs):
                 "Labels": labels,
                 "MetricsPath": metrics_path,
                 "ScrapeInterval": scrape_interval,
+                "FallbackScrapeProtocol": fallback_scrape_interval,
             }
         )
 
